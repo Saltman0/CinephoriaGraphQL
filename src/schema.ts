@@ -4,6 +4,38 @@ export const typeDefs = gql`#graphql
 
     type Query {
         halls(cinemaId: ID!): [Hall!]!
+        bookings(userId: ID!): [Booking!]!
+    }
+
+    type Booking {
+        id: ID!
+        qrCode: String!
+        user: User!
+        showtime: Showtime!
+        bookingSeats: [BookingSeat!]!
+    }
+
+    type BookingSeat {
+        id: ID!
+        booking: Booking!
+        seat: Seat!
+    }
+
+    type Seat {
+        id: ID!
+        row: String!
+        number: Int!
+        hall: Hall!
+    }
+
+    type User {
+        id: ID!
+        email: String!
+        password: String!
+        firstName: String!
+        lastName: String!
+        phoneNumber: String!
+        role: String!
     }
 
     type Cinema {
