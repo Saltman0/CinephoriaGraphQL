@@ -9,7 +9,12 @@ const config: CodegenConfig = {
         contextType: "./context#DataSourceContext",
         mappers: {
           Hall: "./models#HallModel",
-          Showtime: "./models#ShowtimeModel"
+          Showtime: "./models#ShowtimeModel",
+          Movie: "./models#MovieModel",
+          Incident: "./models#IncidentModel",
+          Booking: "./models#BookingModel",
+          BookingSeat: "./models#BookingSeatModel",
+          Seat: "./models#SeatModel"
         },
       },
     },
