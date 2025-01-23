@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { HallModel, ShowtimeModel } from './models.ts';
+import { HallModel, ShowtimeModel, MovieModel, IncidentModel, BookingModel, BookingSeatModel, SeatModel } from './models.ts';
 import { DataSourceContext } from './context.ts';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -8,7 +8,6 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -17,6 +16,22 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+};
+
+export type Booking = {
+  __typename?: 'Booking';
+  bookingSeats: Array<BookingSeat>;
+  id: Scalars['ID']['output'];
+  qrCode: Scalars['String']['output'];
+  showtime: Showtime;
+  user: User;
+};
+
+export type BookingSeat = {
+  __typename?: 'BookingSeat';
+  booking: Booking;
+  id: Scalars['ID']['output'];
+  seat: Seat;
 };
 
 export type Cinema = {
@@ -61,12 +76,26 @@ export type Movie = {
 
 export type Query = {
   __typename?: 'Query';
+  bookings: Array<Booking>;
   halls: Array<Hall>;
+};
+
+
+export type QueryBookingsArgs = {
+  userId: Scalars['ID']['input'];
 };
 
 
 export type QueryHallsArgs = {
   cinemaId: Scalars['ID']['input'];
+};
+
+export type Seat = {
+  __typename?: 'Seat';
+  hall: Hall;
+  id: Scalars['ID']['output'];
+  number: Scalars['Int']['output'];
+  row: Scalars['String']['output'];
 };
 
 export type Showtime = {
@@ -77,6 +106,17 @@ export type Showtime = {
   movie: Movie;
   price: Scalars['Int']['output'];
   startTime: Scalars['String']['output'];
+};
+
+export type User = {
+  __typename?: 'User';
+  email: Scalars['String']['output'];
+  firstName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  lastName: Scalars['String']['output'];
+  password: Scalars['String']['output'];
+  phoneNumber: Scalars['String']['output'];
+  role: Scalars['String']['output'];
 };
 
 
@@ -150,30 +190,54 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  Booking: ResolverTypeWrapper<BookingModel>;
+  BookingSeat: ResolverTypeWrapper<BookingSeatModel>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Cinema: ResolverTypeWrapper<Cinema>;
   Hall: ResolverTypeWrapper<HallModel>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
-  Incident: ResolverTypeWrapper<Omit<Incident, 'hall'> & { hall: ResolversTypes['Hall'] }>;
+  Incident: ResolverTypeWrapper<IncidentModel>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  Movie: ResolverTypeWrapper<Movie>;
+  Movie: ResolverTypeWrapper<MovieModel>;
   Query: ResolverTypeWrapper<{}>;
+  Seat: ResolverTypeWrapper<SeatModel>;
   Showtime: ResolverTypeWrapper<ShowtimeModel>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  User: ResolverTypeWrapper<User>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Booking: BookingModel;
+  BookingSeat: BookingSeatModel;
   Boolean: Scalars['Boolean']['output'];
   Cinema: Cinema;
   Hall: HallModel;
   ID: Scalars['ID']['output'];
-  Incident: Omit<Incident, 'hall'> & { hall: ResolversParentTypes['Hall'] };
+  Incident: IncidentModel;
   Int: Scalars['Int']['output'];
-  Movie: Movie;
+  Movie: MovieModel;
   Query: {};
+  Seat: SeatModel;
   Showtime: ShowtimeModel;
   String: Scalars['String']['output'];
+  User: User;
+};
+
+export type BookingResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Booking'] = ResolversParentTypes['Booking']> = {
+  bookingSeats?: Resolver<Array<ResolversTypes['BookingSeat']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  qrCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  showtime?: Resolver<ResolversTypes['Showtime'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BookingSeatResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['BookingSeat'] = ResolversParentTypes['BookingSeat']> = {
+  booking?: Resolver<ResolversTypes['Booking'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  seat?: Resolver<ResolversTypes['Seat'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CinemaResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Cinema'] = ResolversParentTypes['Cinema']> = {
@@ -217,7 +281,16 @@ export type MovieResolvers<ContextType = DataSourceContext, ParentType extends R
 };
 
 export type QueryResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  bookings?: Resolver<Array<ResolversTypes['Booking']>, ParentType, ContextType, RequireFields<QueryBookingsArgs, 'userId'>>;
   halls?: Resolver<Array<ResolversTypes['Hall']>, ParentType, ContextType, RequireFields<QueryHallsArgs, 'cinemaId'>>;
+};
+
+export type SeatResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Seat'] = ResolversParentTypes['Seat']> = {
+  hall?: Resolver<ResolversTypes['Hall'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  row?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ShowtimeResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Showtime'] = ResolversParentTypes['Showtime']> = {
@@ -230,12 +303,27 @@ export type ShowtimeResolvers<ContextType = DataSourceContext, ParentType extend
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UserResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phoneNumber?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = DataSourceContext> = {
+  Booking?: BookingResolvers<ContextType>;
+  BookingSeat?: BookingSeatResolvers<ContextType>;
   Cinema?: CinemaResolvers<ContextType>;
   Hall?: HallResolvers<ContextType>;
   Incident?: IncidentResolvers<ContextType>;
   Movie?: MovieResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Seat?: SeatResolvers<ContextType>;
   Showtime?: ShowtimeResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 };
 
