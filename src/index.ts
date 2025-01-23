@@ -5,6 +5,7 @@ import { resolvers } from "./resolvers.ts";
 import { InfrastructureApi } from "./datasources/infrastructure-api.ts";
 import { ShowtimeApi } from "./datasources/showtime-api.ts";
 import { MovieApi } from "./datasources/movie-api.ts";
+import { BookingApi } from "./datasources/booking-api.ts";
 
 async function startApolloServer() {
   const server = new ApolloServer({ typeDefs, resolvers });
@@ -16,7 +17,8 @@ async function startApolloServer() {
         dataSources: {
           infrastructureApi: new InfrastructureApi({ cache }),
           showtimeApi: new ShowtimeApi({ cache }),
-          movieApi: new MovieApi({ cache })
+          movieApi: new MovieApi({ cache }),
+          bookingApi: new BookingApi({ cache })
         }
       };
     },
