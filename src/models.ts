@@ -29,3 +29,23 @@ export type IncidentModel = {
   description: string;
   hallId: string;
 }
+
+export type BookingModel = {
+  id: string;
+  qrCode: string;
+  userId: string;
+  showtimeId: string;
+}
+
+export type BookingSeatModel = {
+  id: string;
+  bookingId: string;
+  seatId: string;
+}
+
+export type SeatModel = {
+  id: string;
+  row: string;
+  number: number;
+  hallId: string;
+}
