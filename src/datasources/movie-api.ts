@@ -4,7 +4,7 @@ import { MovieModel } from "../models.ts"
 export class MovieApi extends RESTDataSource {
     override baseURL = "http://172.18.0.6/";
 
-    getMovie(id: string): Promise<MovieModel> {
-      return this.get<MovieModel>(`movie/${encodeURIComponent(id)}`);
+    getMovie(movieId: string): Promise<MovieModel> {
+      return this.get<MovieModel>(`movie/${encodeURIComponent(movieId)}`);
     }
 }

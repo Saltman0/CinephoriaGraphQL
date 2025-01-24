@@ -4,11 +4,11 @@ import { ShowtimeModel } from "../models.ts"
 export class ShowtimeApi extends RESTDataSource {
     override baseURL = "http://172.18.0.6/";
 
-    getShowtime(id: string): Promise<ShowtimeModel> {
-        return this.get<ShowtimeModel>(`showtime/${encodeURIComponent(id)}`)
+    getShowtime(showtimeId: string): Promise<ShowtimeModel> {
+        return this.get<ShowtimeModel>(`showtime/${encodeURIComponent(showtimeId)}`);
     }
 
     getCurrentShowtime(hallId: string): Promise<ShowtimeModel> {
-        return this.get<ShowtimeModel>(`showtime/current-showtime/${encodeURIComponent(hallId)}`);
+        return this.get<ShowtimeModel>(`showtime/current-showtime/?hallId=${encodeURIComponent(hallId)}`);
     }
 }
