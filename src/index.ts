@@ -10,17 +10,19 @@ import { BookingApi } from "./datasources/booking-api.ts";
 async function startApolloServer() {
   const server = new ApolloServer({ typeDefs, resolvers });
   const { url } = await startStandaloneServer(server, {
-    /*listen: { port: process.env.PORT || 4000 },*/
-    context: async () => {
+    context: async ({ req }) => {
+
+      const token: string = req.headers.authorization || '';
+
       const { cache } = server;
       return {
         dataSources: {
-          infrastructureApi: new InfrastructureApi({ cache }),
-          showtimeApi: new ShowtimeApi({ cache }),
-          movieApi: new MovieApi({ cache }),
-          bookingApi: new BookingApi({ cache })
+          infrastructureApi: new InfrastructureApi({ cache, token }),
+          showtimeApi: new ShowtimeApi({ cache, token }),
+          movieApi: new MovieApi({ cache, token }),
+          bookingApi: new BookingApi({ cache, token })
         }
-      };
+      }
     },
   });
   console.log(`
