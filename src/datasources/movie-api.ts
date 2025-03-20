@@ -15,7 +15,7 @@ export class MovieApi extends RESTDataSource {
         request.headers['authorization'] = this.token;
     }
 
-    getMovie(movieId: string): Promise<MovieModel> {
+    getMovie(movieId: number): Promise<MovieModel> {
       return this.get<MovieModel>(`movie/${encodeURIComponent(movieId)}`);
     }
 }

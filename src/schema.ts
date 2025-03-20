@@ -3,12 +3,12 @@ import gql from "graphql-tag";
 export const typeDefs = gql`#graphql
 
     type Query {
-        halls(cinemaId: ID!): [Hall!]!
-        bookings(userId: ID!): [Booking!]!
+        halls(cinemaId: Int!): [Hall!]!
+        bookings(userId: Int!): [Booking!]!
     }
 
     type Booking {
-        id: ID!
+        id: Int!
         qrCode: String!
         user: User!
         showtime: Showtime!
@@ -16,20 +16,20 @@ export const typeDefs = gql`#graphql
     }
 
     type BookingSeat {
-        id: ID!
+        id: Int!
         booking: Booking!
         seat: Seat!
     }
 
     type Seat {
-        id: ID!
+        id: Int!
         row: String!
         number: Int!
         hall: Hall!
     }
 
     type User {
-        id: ID!
+        id: Int!
         email: String!
         password: String!
         firstName: String!
@@ -39,7 +39,7 @@ export const typeDefs = gql`#graphql
     }
 
     type Cinema {
-        id: ID!
+        id: Int!
         name: String!
         address: String!
         postalCode: Int!
@@ -50,7 +50,7 @@ export const typeDefs = gql`#graphql
     }
 
     type Hall {
-        id: ID!
+        id: Int!
         number: Int!
         projectionQuality: String!
         cinema: Cinema!
@@ -59,14 +59,14 @@ export const typeDefs = gql`#graphql
     }
 
     type Incident {
-        id: ID!
+        id: Int!
         type: String!
         description: String!
         hall: Hall!
     }
 
     type Showtime {
-        id: ID!
+        id: Int!
         startTime: String!
         endTime: String!
         price: Int!
@@ -75,7 +75,7 @@ export const typeDefs = gql`#graphql
     }
 
     type Movie {
-        id: ID!
+        id: Int!
         title: String!
         description: String!
         minimumAge: Int

@@ -15,19 +15,19 @@ export class InfrastructureApi extends RESTDataSource {
         request.headers['authorization'] = this.token;
     }
 
-    getHalls(cinemaId: string): Promise<HallModel[]> {
+    getHalls(cinemaId: number): Promise<HallModel[]> {
       return this.get<HallModel[]>(`cinema/${encodeURIComponent(cinemaId)}/hall`);
     }
 
-    getHall(hallId: string): Promise<HallModel> {
+    getHall(hallId: number): Promise<HallModel> {
         return this.get<HallModel>(`hall/${encodeURIComponent(hallId)}`);
     }
 
-    getSeat(seatId: string): Promise<SeatModel> {
+    getSeat(seatId: number): Promise<SeatModel> {
         return this.get<SeatModel>(`seat/${encodeURIComponent(seatId)}`);
     }
 
-    getIncidents(hallId: string): Promise<IncidentModel[]> {
+    getIncidents(hallId: number): Promise<IncidentModel[]> {
         return this.get<IncidentModel[]>(`hall/${encodeURIComponent(hallId)}/incident`);
     }
 }

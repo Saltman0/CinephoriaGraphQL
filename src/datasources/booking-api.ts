@@ -15,11 +15,11 @@ export class BookingApi extends RESTDataSource {
         request.headers['authorization'] = this.token;
     }
 
-    getBookings(userId: string): Promise<BookingModel[]> {
+    getBookings(userId: number): Promise<BookingModel[]> {
         return this.get<BookingModel[]>(`booking/${encodeURIComponent(userId)}`);
     }
 
-    getBookingSeats(bookingId: string): Promise<BookingSeatModel[]> {
+    getBookingSeats(bookingId: number): Promise<BookingSeatModel[]> {
         return this.get<BookingSeatModel[]>(`booking/${encodeURIComponent(bookingId)}/bookingSeats`);
     }
 }

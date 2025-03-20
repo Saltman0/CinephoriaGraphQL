@@ -1,12 +1,12 @@
 export type HallModel = {
-  id: string;
+  id: number;
   number: number;
   projectionQuality: string;
   cinemaId: string;
 }
 
 export type ShowtimeModel = {
-  id: string;
+  id: number;
   startTime: string;
   endTime: string;
   price: number;
@@ -15,7 +15,7 @@ export type ShowtimeModel = {
 }
 
 export type MovieModel = {
-  id: string;
+  id: number;
   title: string;
   description: string;
   minimumAge: number;
@@ -24,27 +24,27 @@ export type MovieModel = {
 }
 
 export type IncidentModel = {
-  id: string;
+  id: number;
   type: string;
   description: string;
   hallId: string;
 }
 
 export type BookingModel = {
-  id: string;
+  id: number;
   qrCode: string;
   userId: string;
   showtimeId: string;
 }
 
 export type BookingSeatModel = {
-  id: string;
+  id: number;
   bookingId: string;
   seatId: string;
 }
 
 export type SeatModel = {
-  id: string;
+  id: number;
   row: string;
   number: number;
   hallId: string;

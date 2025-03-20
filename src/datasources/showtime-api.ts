@@ -15,11 +15,11 @@ export class ShowtimeApi extends RESTDataSource {
         request.headers['authorization'] = this.token;
     }
 
-    getShowtime(showtimeId: string): Promise<ShowtimeModel> {
+    getShowtime(showtimeId: number): Promise<ShowtimeModel> {
         return this.get<ShowtimeModel>(`showtime/${encodeURIComponent(showtimeId)}`);
     }
 
-    getCurrentShowtime(hallId: string): Promise<ShowtimeModel> {
+    getCurrentShowtime(hallId: number): Promise<ShowtimeModel> {
         return this.get<ShowtimeModel>(`showtime/current-showtime/?hallId=${encodeURIComponent(hallId)}`);
     }
 }
