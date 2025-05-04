@@ -62,6 +62,8 @@ export const typeDefs = gql`#graphql
         id: Int!
         type: String!
         description: String!
+        date: String!
+        solved: Boolean!
         hall: Hall!
     }
 

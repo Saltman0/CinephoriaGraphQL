@@ -58,9 +58,11 @@ export type Hall = {
 
 export type Incident = {
   __typename?: 'Incident';
+  date: Scalars['String']['output'];
   description: Scalars['String']['output'];
   hall: Hall;
   id: Scalars['Int']['output'];
+  solved: Scalars['Boolean']['output'];
   type: Scalars['String']['output'];
 };
 
@@ -261,9 +263,11 @@ export type HallResolvers<ContextType = DataSourceContext, ParentType extends Re
 };
 
 export type IncidentResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Incident'] = ResolversParentTypes['Incident']> = {
+  date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   hall?: Resolver<ResolversTypes['Hall'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  solved?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
