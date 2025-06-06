@@ -6,6 +6,7 @@ import { InfrastructureApi } from "./datasources/infrastructure-api.ts";
 import { ShowtimeApi } from "./datasources/showtime-api.ts";
 import { MovieApi } from "./datasources/movie-api.ts";
 import { BookingApi } from "./datasources/booking-api.ts";
+import { UserApi } from "./datasources/user-api.ts";
 
 async function startApolloServer() {
   const server = new ApolloServer({ typeDefs, resolvers });
@@ -20,7 +21,8 @@ async function startApolloServer() {
           infrastructureApi: new InfrastructureApi({ cache, token }),
           showtimeApi: new ShowtimeApi({ cache, token }),
           movieApi: new MovieApi({ cache, token }),
-          bookingApi: new BookingApi({ cache, token })
+          bookingApi: new BookingApi({ cache, token }),
+          userApi: new UserApi({ cache, token })
         }
       }
     },

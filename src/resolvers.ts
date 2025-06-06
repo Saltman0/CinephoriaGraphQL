@@ -1,4 +1,4 @@
-import { Resolvers } from "./types.ts";
+import {Resolvers} from "./types.ts";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -7,6 +7,9 @@ export const resolvers: Resolvers = {
     },
     bookings: (_, { userId }, { dataSources }) => {
       return dataSources.bookingApi.getBookings(userId);
+    },
+    users: (_, __, { dataSources }) => {
+      return dataSources.userApi.getUsers();
     }
   },
   Hall: {

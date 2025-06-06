@@ -51,3 +51,13 @@ export type SeatModel = {
   number: number;
   hallId: number;
 }
+
+export type UserModel = {
+  id: number;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  role: string;
+}

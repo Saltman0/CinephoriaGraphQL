@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { HallModel, ShowtimeModel, MovieModel, IncidentModel, BookingModel, BookingSeatModel, SeatModel } from './models.ts';
+import { HallModel, ShowtimeModel, MovieModel, IncidentModel, BookingModel, BookingSeatModel, SeatModel, UserModel } from './models.ts';
 import { DataSourceContext } from './context.ts';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -80,6 +80,7 @@ export type Query = {
   __typename?: 'Query';
   bookings: Array<Booking>;
   halls: Array<Hall>;
+  users: Array<User>;
 };
 
 
@@ -90,6 +91,11 @@ export type QueryBookingsArgs = {
 
 export type QueryHallsArgs = {
   cinemaId: Scalars['Int']['input'];
+};
+
+
+export type QueryUsersArgs = {
+  userId: Scalars['Int']['input'];
 };
 
 export type Seat = {
@@ -204,7 +210,7 @@ export type ResolversTypes = {
   Seat: ResolverTypeWrapper<SeatModel>;
   Showtime: ResolverTypeWrapper<ShowtimeModel>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<UserModel>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -221,7 +227,7 @@ export type ResolversParentTypes = {
   Seat: SeatModel;
   Showtime: ShowtimeModel;
   String: Scalars['String']['output'];
-  User: User;
+  User: UserModel;
 };
 
 export type BookingResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Booking'] = ResolversParentTypes['Booking']> = {
@@ -285,6 +291,7 @@ export type MovieResolvers<ContextType = DataSourceContext, ParentType extends R
 export type QueryResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   bookings?: Resolver<Array<ResolversTypes['Booking']>, ParentType, ContextType, RequireFields<QueryBookingsArgs, 'userId'>>;
   halls?: Resolver<Array<ResolversTypes['Hall']>, ParentType, ContextType, RequireFields<QueryHallsArgs, 'cinemaId'>>;
+  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUsersArgs, 'userId'>>;
 };
 
 export type SeatResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Seat'] = ResolversParentTypes['Seat']> = {

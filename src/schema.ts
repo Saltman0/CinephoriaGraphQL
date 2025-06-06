@@ -5,6 +5,7 @@ export const typeDefs = gql`#graphql
     type Query {
         halls(cinemaId: Int!): [Hall!]!
         bookings(userId: Int!): [Booking!]!
+        users: [User!]!
     }
 
     type Booking {

@@ -14,7 +14,8 @@ const config: CodegenConfig = {
           Incident: "./models#IncidentModel",
           Booking: "./models#BookingModel",
           BookingSeat: "./models#BookingSeatModel",
-          Seat: "./models#SeatModel"
+          Seat: "./models#SeatModel",
+          User: "./models#UserModel"
         },
       },
     },
