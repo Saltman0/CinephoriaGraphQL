@@ -34,6 +34,9 @@ export const resolvers: Resolvers = {
     },
     bookingSeats: ({ id }, _, { dataSources }) => {
       return dataSources.bookingApi.getBookingSeats(id);
+    },
+    user: ({ userId }, _, { dataSources }) => {
+      return dataSources.userApi.getUser(userId);
     }
   },
   BookingSeat: {

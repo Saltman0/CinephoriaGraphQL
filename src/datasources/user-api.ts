@@ -15,6 +15,10 @@ export class UserApi extends RESTDataSource {
         request.headers['authorization'] = this.token;
     }
 
+    getUser(userId: number): Promise<UserModel> {
+        return this.get<UserModel>(`user/${encodeURIComponent(userId)}`);
+    }
+
     getUsers(): Promise<UserModel[]> {
         return this.get<UserModel[]>(`user`);
     }
