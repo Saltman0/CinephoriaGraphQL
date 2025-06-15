@@ -14,4 +14,4 @@ RUN deno cache src/index.ts
 EXPOSE 4000
 
 # 6) Define the runtime command
-CMD ["run", "--allow-net", "--allow-read", "--allow-env", "src/index.ts"]
+CMD ["deno", "run", "dev"]
