@@ -10,7 +10,7 @@ import { UserApi } from "./datasources/user-api.ts";
 
 async function startApolloServer() {
   const server = new ApolloServer({ typeDefs, resolvers });
-  const { url } = await startStandaloneServer(server, {
+  await startStandaloneServer(server, {
     context: async ({ req }) => {
 
       const token: string = req.headers.authorization || '';
@@ -29,7 +29,7 @@ async function startApolloServer() {
   });
   console.log(`
     🚀  Server is running!
-    📭  Query at ${url}
+    📭  Query at port ${process.env.PORT}
   `);
 }
 
