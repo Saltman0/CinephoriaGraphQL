@@ -5,6 +5,9 @@ export const resolvers: Resolvers = {
     halls: (_, { cinemaId }, { dataSources }) => {
       return dataSources.infrastructureApi.getHalls(cinemaId);
     },
+    movies: (_, __, { dataSources }) => {
+      return dataSources.movieApi.getMovies();
+    },
     bookings: (_, { userId }, { dataSources }) => {
       return dataSources.bookingApi.getBookings(userId);
     },
@@ -18,6 +21,11 @@ export const resolvers: Resolvers = {
     },
     incidents: ({ id }, _, { dataSources }) => {
       return dataSources.infrastructureApi.getIncidents(id);
+    }
+  },
+  Movie: {
+    showtimes: ({ id }, _, { dataSources }) => {
+      return dataSources.showtimeApi.getShowtimes(id);
     }
   },
   Showtime: {

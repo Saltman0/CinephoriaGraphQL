@@ -1,6 +1,6 @@
 import { RESTDataSource, AugmentedRequest } from "@apollo/datasource-rest";
 import { KeyValueCache } from "@apollo/utils.keyvaluecache";
-import { ShowtimeModel } from "../models.ts"
+import {ShowtimeModel} from "../models.ts"
 
 export class ShowtimeApi extends RESTDataSource {
     override baseURL = "http://172.18.0.6/";
@@ -13,6 +13,10 @@ export class ShowtimeApi extends RESTDataSource {
 
     override willSendRequest(_path: string, request: AugmentedRequest) {
         request.headers['authorization'] = this.token;
+    }
+
+    getShowtimes(movieId: number): Promise<ShowtimeModel[]> {
+        return this.get<ShowtimeModel[]>(`showtime?movieId=${encodeURIComponent(movieId)}`);
     }
 
     getShowtime(showtimeId: number): Promise<ShowtimeModel> {

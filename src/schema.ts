@@ -5,6 +5,7 @@ export const typeDefs = gql`#graphql
     type Query {
         halls(cinemaId: Int!): [Hall!]!
         bookings(userId: Int!): [Booking!]!
+        movies: [Movie!]!
         users: [User!]!
     }
 
@@ -68,15 +69,6 @@ export const typeDefs = gql`#graphql
         hall: Hall!
     }
 
-    type Showtime {
-        id: Int!
-        startTime: String!
-        endTime: String!
-        price: Int!
-        movie: Movie!
-        hall: Hall!
-    }
-
     type Movie {
         id: Int!
         title: String!
@@ -84,5 +76,15 @@ export const typeDefs = gql`#graphql
         minimumAge: Int
         favorite: Boolean!
         imageURL: String!
+        showtimes: [Showtime!]!
+    }
+
+    type Showtime {
+        id: Int!
+        startTime: String!
+        endTime: String!
+        price: Int!
+        movie: Movie!
+        hall: Hall!
     }
 `;

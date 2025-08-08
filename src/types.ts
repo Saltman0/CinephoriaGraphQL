@@ -73,6 +73,7 @@ export type Movie = {
   id: Scalars['Int']['output'];
   imageURL: Scalars['String']['output'];
   minimumAge?: Maybe<Scalars['Int']['output']>;
+  showtimes: Array<Showtime>;
   title: Scalars['String']['output'];
 };
 
@@ -80,6 +81,7 @@ export type Query = {
   __typename?: 'Query';
   bookings: Array<Booking>;
   halls: Array<Hall>;
+  movies: Array<Movie>;
   users: Array<User>;
 };
 
@@ -91,11 +93,6 @@ export type QueryBookingsArgs = {
 
 export type QueryHallsArgs = {
   cinemaId: Scalars['Int']['input'];
-};
-
-
-export type QueryUsersArgs = {
-  userId: Scalars['Int']['input'];
 };
 
 export type Seat = {
@@ -284,6 +281,7 @@ export type MovieResolvers<ContextType = DataSourceContext, ParentType extends R
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   imageURL?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   minimumAge?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  showtimes?: Resolver<Array<ResolversTypes['Showtime']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -291,7 +289,8 @@ export type MovieResolvers<ContextType = DataSourceContext, ParentType extends R
 export type QueryResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   bookings?: Resolver<Array<ResolversTypes['Booking']>, ParentType, ContextType, RequireFields<QueryBookingsArgs, 'userId'>>;
   halls?: Resolver<Array<ResolversTypes['Hall']>, ParentType, ContextType, RequireFields<QueryHallsArgs, 'cinemaId'>>;
-  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUsersArgs, 'userId'>>;
+  movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
+  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
 export type SeatResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Seat'] = ResolversParentTypes['Seat']> = {

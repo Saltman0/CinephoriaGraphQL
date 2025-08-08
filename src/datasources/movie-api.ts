@@ -18,4 +18,8 @@ export class MovieApi extends RESTDataSource {
     getMovie(movieId: number): Promise<MovieModel> {
       return this.get<MovieModel>(`movie/${encodeURIComponent(movieId)}`);
     }
+
+    getMovies(): Promise<MovieModel> {
+        return this.get<MovieModel>(`movie`);
+    }
 }
