@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 export const typeDefs = gql`#graphql
 
     type Query {
-        halls(cinemaId: Int!): [Hall!]!
+        halls(cinemaId: Int): [Hall!]!
         bookings(userId: Int, showtimeId: Int): [Booking!]!
         movies: [Movie!]!
         users: [User!]!

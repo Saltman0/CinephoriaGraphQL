@@ -1,6 +1,6 @@
 import { RESTDataSource, AugmentedRequest } from "@apollo/datasource-rest";
 import { KeyValueCache } from "@apollo/utils.keyvaluecache";
-import { HallModel, IncidentModel, SeatModel } from "../models.ts";
+import {HallModel, IncidentModel, SeatModel} from "../models.ts";
 
 export class InfrastructureApi extends RESTDataSource {
     override baseURL = process.env.GRAPHQL_URL as string;
@@ -15,8 +15,12 @@ export class InfrastructureApi extends RESTDataSource {
         request.headers['authorization'] = this.token;
     }
 
-    getHalls(cinemaId: number): Promise<HallModel[]> {
-      return this.get<HallModel[]>(`cinema/${encodeURIComponent(cinemaId)}/hall`);
+    getHalls(cinemaId: number|null): Promise<HallModel[]> {
+        if (cinemaId !== null) {
+            return this.get<HallModel[]>(`hall?cinemaId=${encodeURIComponent(cinemaId)}`);
+        }
+
+        return this.get<HallModel[]>("hall");
     }
 
     getHall(hallId: number): Promise<HallModel> {
@@ -28,6 +32,6 @@ export class InfrastructureApi extends RESTDataSource {
     }
 
     getIncidents(hallId: number): Promise<IncidentModel[]> {
-        return this.get<IncidentModel[]>(`hall/${encodeURIComponent(hallId)}/incident`);
+        return this.get<IncidentModel[]>(`incident?hallId=${encodeURIComponent(hallId)}`);
     }
 }
