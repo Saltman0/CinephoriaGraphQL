@@ -3,7 +3,7 @@ import { KeyValueCache } from "@apollo/utils.keyvaluecache";
 import { HallModel, IncidentModel, SeatModel } from "../models.ts";
 
 export class InfrastructureApi extends RESTDataSource {
-    override baseURL = "http://172.18.0.6/";
+    override baseURL = process.env.GRAPHQL_URL as string;
     private readonly token: string;
 
     constructor(options: { token: string; cache: KeyValueCache }) {
