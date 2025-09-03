@@ -29,7 +29,7 @@ async function startApolloServer() {
   });
   console.log(`
     🚀  Server is running!
-    📭  Query at ${process.env.GRAPHQL_URL}, port ${process.env.PORT}
+    📭  Query at ${process.env.GRAPHQL_URL}graphql at port ${process.env.PORT}
   `);
 }
 
