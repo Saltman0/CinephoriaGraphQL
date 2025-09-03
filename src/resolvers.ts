@@ -8,8 +8,8 @@ export const resolvers: Resolvers = {
     movies: (_, __, { dataSources }) => {
       return dataSources.movieApi.getMovies();
     },
-    bookings: (_, { userId }, { dataSources }) => {
-      return dataSources.bookingApi.getBookings(userId);
+    bookings: (_, { userId, showtimeId }, { dataSources }) => {
+      return dataSources.bookingApi.getBookings(userId, showtimeId);
     },
     users: (_, __, { dataSources }) => {
       return dataSources.userApi.getUsers();
