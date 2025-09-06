@@ -3,8 +3,11 @@ import gql from "graphql-tag";
 export const typeDefs = gql`#graphql
 
     type Query {
+        cinemas: [Cinema!]!
         halls(cinemaId: Int): [Hall!]!
+        seats(hallId: Int): [Seat!]!
         bookings(userId: Int, showtimeId: Int): [Booking!]!
+        showtimes(movieId: Int): [Showtime!]!
         movies: [Movie!]!
         users: [User!]!
     }
@@ -38,6 +41,7 @@ export const typeDefs = gql`#graphql
         lastName: String!
         phoneNumber: String!
         role: String!
+        booking: [Booking!]!
     }
 
     type Cinema {
@@ -49,6 +53,7 @@ export const typeDefs = gql`#graphql
         phoneNumber: String!
         openHour: String!
         closeHour: String!
+        halls: [Hall!]!
     }
 
     type Hall {
@@ -58,6 +63,7 @@ export const typeDefs = gql`#graphql
         cinema: Cinema!
         currentShowtime: Showtime
         incidents: [Incident!]!
+        seats: [Seat!]!
     }
 
     type Incident {
@@ -86,5 +92,6 @@ export const typeDefs = gql`#graphql
         price: Int!
         movie: Movie!
         hall: Hall!
+        bookings: [Booking!]!
     }
 `;
