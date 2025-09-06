@@ -2,14 +2,23 @@ import {Resolvers} from "./types.ts";
 
 export const resolvers: Resolvers = {
   Query: {
+    cinemas: (_, __, { dataSources }) => {
+      return dataSources.infrastructureApi.getCinemas();
+    },
     halls: (_, { cinemaId }, { dataSources }) => {
       return dataSources.infrastructureApi.getHalls(cinemaId);
+    },
+    seats: (_, { hallId }, { dataSources }) => {
+      return dataSources.infrastructureApi.getSeats(hallId);
     },
     movies: (_, __, { dataSources }) => {
       return dataSources.movieApi.getMovies();
     },
     bookings: (_, { userId, showtimeId }, { dataSources }) => {
       return dataSources.bookingApi.getBookings(userId, showtimeId);
+    },
+    showtimes: (_, { movieId }, { dataSources }) => {
+      return dataSources.showtimeApi.getShowtimes(movieId);
     },
     users: (_, __, { dataSources }) => {
       return dataSources.userApi.getUsers();
