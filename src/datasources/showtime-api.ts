@@ -16,7 +16,11 @@ export class ShowtimeApi extends RESTDataSource {
     }
 
     getShowtimes(movieId: number): Promise<ShowtimeModel[]> {
-        return this.get<ShowtimeModel[]>(`showtime?movieId=${encodeURIComponent(movieId)}`);
+        if (movieId !== null) {
+            return this.get<ShowtimeModel[]>(`showtime?movieId=${encodeURIComponent(movieId)}`);
+        }
+
+        return this.get<ShowtimeModel[]>(`showtime`);
     }
 
     getShowtime(showtimeId: number): Promise<ShowtimeModel> {
