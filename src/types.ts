@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { HallModel, ShowtimeModel, MovieModel, IncidentModel, BookingModel, BookingSeatModel, SeatModel, UserModel } from './models';
-import { DataSourceContext } from './context';
+import { HallModel, ShowtimeModel, MovieModel, IncidentModel, BookingModel, BookingSeatModel, SeatModel, UserModel } from './models.ts';
+import { DataSourceContext } from './context.ts';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
