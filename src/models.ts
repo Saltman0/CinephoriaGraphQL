@@ -1,8 +1,20 @@
+export type CinemaModel = {
+    id: number;
+    name: string;
+    address: string;
+    postalCode: number;
+    city: string;
+    phoneNumber: string;
+    openHour: string;
+    closeHour: string;
+}
+
 export type HallModel = {
   id: number;
   number: number;
   projectionQuality: string;
   cinemaId: number;
+  currentShowtimeId: number;
 }
 
 export type ShowtimeModel = {
