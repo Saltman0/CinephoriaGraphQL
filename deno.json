@@ -1,5 +1,6 @@
 {
   "tasks": {
+    "build": "deno install --allow-scripts",
     "dev": "deno run --allow-net --allow-read --allow-env --allow-run --watch src/index.ts",
     "prod": "deno run --allow-net --allow-read --allow-env --allow-run src/index.ts",
     "generate": "graphql-codegen"
