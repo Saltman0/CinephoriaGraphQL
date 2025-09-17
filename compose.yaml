@@ -14,6 +14,8 @@ services:
       context: .
     environment:
       NODE_ENV: ${NODE_ENV}
+      GRAPHQL_URL: ${GRAPHQL_URL}
+      PORT: ${PORT}
     networks:
       - cinephoria_graphql_network
     ports:
