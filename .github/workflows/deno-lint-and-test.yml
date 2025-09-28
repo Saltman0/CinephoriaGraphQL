@@ -10,7 +10,7 @@ name: Deno - Test
 
 on:
   push:
-    branches: ["main"]
+    branches: ["*"]
 
 permissions:
   contents: read
@@ -32,8 +32,8 @@ jobs:
       # - name: Verify formatting
       #   run: deno fmt --check
 
-      #- name: Run linter
-        #run: deno lint
+      - name: Run linter
+        run: deno lint
 
       - name: Cache Deno dependencies
         uses: actions/cache@v3
