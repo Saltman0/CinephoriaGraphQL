@@ -1,6 +1,7 @@
 import {RESTDataSource, AugmentedRequest} from "@apollo/datasource-rest";
 import {KeyValueCache} from "@apollo/utils.keyvaluecache";
 import {UserModel} from "../models.ts";
+import process from "node:process";
 
 export class UserApi extends RESTDataSource {
     override baseURL = process.env.GRAPHQL_URL as string;

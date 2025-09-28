@@ -17,5 +17,13 @@
     "graphql-tag": "npm:graphql-tag@^2.12.6",
     "jsonwebtoken": "npm:jsonwebtoken@^9.0.2"
   },
-  "nodeModulesDir": "auto"
+  "nodeModulesDir": "auto",
+  "lint": {
+    "exclude": ["src/types.ts"],
+    "rules": {
+      "tags": ["recommended"],
+      "include": ["ban-untagged-todo"],
+      "exclude": ["no-unused-vars"]
+    }
+  }
 }
