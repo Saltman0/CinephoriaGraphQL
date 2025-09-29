@@ -7,15 +7,12 @@ on:
     branches: ["main"]
 
 jobs:
-  deno-lint-and-test:
-    uses: ./.github/workflows/deno-lint-and-test.yml
-
-  codeql:
-    uses: ./.github/workflows/codeql.yml
+  test:
+    uses: ./.github/workflows/test.yml
 
   build-and-publish-docker-image:
-    uses: ./.github/workflows/build-and-publish-docker-image.yml
-    needs: deno-lint-and-test
+    uses: ./.github/workflows/docker.yml
+    needs: test
     with:
       image: saltman0/cinephoria-graphql
       tag: latest
