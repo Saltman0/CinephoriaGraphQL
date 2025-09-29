@@ -1,8 +1,7 @@
-name: Docker - Build and publish
+name: Build and publish Docker image
 
 on:
-  push:
-    branches: [ "main" ]
+  workflow_call:
 
 jobs:
   docker:
