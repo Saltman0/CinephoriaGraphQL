@@ -7,12 +7,12 @@ on:
     branches: ["main"]
 
 jobs:
-  test:
-    uses: ./.github/workflows/test.yml
+  deno:
+    uses: ./.github/workflows/deno.yml
 
-  build-and-publish-docker-image:
+  docker:
     uses: ./.github/workflows/docker.yml
-    needs: test
+    needs: deno
     with:
       image: saltman0/cinephoria-graphql
       tag: latest

@@ -21,7 +21,6 @@ on:
 
 jobs:
   docker:
-    name: Build & Push Docker Image
     runs-on: ubuntu-latest
 
     permissions:
