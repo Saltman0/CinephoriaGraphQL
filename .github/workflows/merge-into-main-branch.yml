@@ -2,8 +2,7 @@ name: Merge into main branch
 
 on:
   push:
-    branches:
-      - "main"
+    branches: ["main"]
 
 jobs:
   deno-lint-and-test:
