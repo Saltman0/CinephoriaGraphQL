@@ -3,11 +3,19 @@ name: Merge into main branch
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   deno-lint-and-test:
-    uses: ././github/workflows/deno-lint-and-test.yml
+    uses: ./.github/workflows/deno-lint-and-test.yml
 
   build-and-publish-docker-image:
-    uses: ././github/workflows/build-and-publish-docker-image.yml
+    uses: ./.github/workflows/build-and-publish-docker-image.yml
     needs: deno-lint-and-test
+    with:
+      image: saltman0/cinephoria-graphql
+      tag: latest
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
