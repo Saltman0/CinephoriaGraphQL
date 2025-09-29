@@ -1,0 +1,14 @@
+name: Merge into main branch
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  deno-lint-and-test:
+    uses: ././github/workflows/deno-lint-and-test.yml
+
+  build-and-publish-docker-image:
+    uses: ././github/workflows/build-and-publish-docker-image.yml
+    needs: deno-lint-and-test
