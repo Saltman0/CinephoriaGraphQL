@@ -10,6 +10,9 @@ jobs:
   deno-lint-and-test:
     uses: ./.github/workflows/deno-lint-and-test.yml
 
+  codeql:
+    uses: ./.github/workflows/codeql.yml
+
   build-and-publish-docker-image:
     uses: ./.github/workflows/build-and-publish-docker-image.yml
     needs: deno-lint-and-test
