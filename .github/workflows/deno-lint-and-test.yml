@@ -3,6 +3,7 @@ name: Deno - Lint and test
 on:
   push:
     branches: ["**"]
+  workflow_call:
 
 permissions:
   contents: read
