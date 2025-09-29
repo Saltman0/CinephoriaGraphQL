@@ -2,7 +2,7 @@ name: Deno - Lint and test
 
 on:
   push:
-    branches: ["**"]
+    branches: ["dev", "features/*", "fixes/*"]
   workflow_call:
 
 permissions:
