@@ -2,6 +2,10 @@ name: Tag
 
 on:
   workflow_call:
+    outputs:
+      package_version:
+        description: "The version from deno.json"
+        value: ${{ jobs.get-version.outputs.package_version }}
 
 jobs:
   get-version:
