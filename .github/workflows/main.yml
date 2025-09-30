@@ -10,12 +10,16 @@ jobs:
   deno:
     uses: ./.github/workflows/deno.yml
 
+  tag:
+    uses: ./.github/workflows/tag.yml
+    needs: deno
+
   docker:
     uses: ./.github/workflows/docker.yml
-    needs: deno
+    needs: tag
     with:
       image: saltman0/cinephoria-graphql
-      tag: latest
+      tag: ${{ needs.tag.outputs.package_version }}
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
