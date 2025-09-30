@@ -1,0 +1,24 @@
+name: Tag
+
+on:
+  workflow_call:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    outputs:
+      package_version: ${{ steps.get_version.outputs.version }}
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Read current version from deno.json
+        id: get_version
+        run: |
+          VERSION=$(jq -r .version deno.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
