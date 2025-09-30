@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  build-and-push:
+  get-version:
     runs-on: ubuntu-latest
     outputs:
       package_version: ${{ steps.get_version.outputs.version }}
@@ -22,3 +22,6 @@ jobs:
         run: |
           VERSION=$(jq -r .version deno.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Use version
+        run: echo "The version is ${{ steps.get_version.outputs.version }}"
