@@ -16,10 +16,6 @@ on:
     secrets:
       K8S_REPO_TOKEN:
         required: true
-      DOCKER_USERNAME:
-        required: true
-      DOCKER_PASSWORD:
-        required: true
 
 jobs:
   update:
