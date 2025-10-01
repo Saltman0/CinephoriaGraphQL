@@ -18,6 +18,13 @@ on:
         required: true
       DOCKER_PASSWORD:
         required: true
+    outputs:
+      image:
+        description: "Docker image name"
+        value: ${{ inputs.image }}
+      tag:
+        description: "Docker image tag"
+        value: ${{ inputs.tag }}
 
 jobs:
   build-and-push:
