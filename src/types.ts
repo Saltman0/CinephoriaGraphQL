@@ -34,6 +34,13 @@ export type BookingSeat = {
   seat: Seat;
 };
 
+export type Category = {
+  __typename?: 'Category';
+  id: Scalars['Int']['output'];
+  movies: Array<Movie>;
+  name: Scalars['String']['output'];
+};
+
 export type Cinema = {
   __typename?: 'Cinema';
   address: Scalars['String']['output'];
@@ -70,6 +77,7 @@ export type Incident = {
 
 export type Movie = {
   __typename?: 'Movie';
+  category: Category;
   description: Scalars['String']['output'];
   favorite: Scalars['Boolean']['output'];
   id: Scalars['Int']['output'];
@@ -82,9 +90,11 @@ export type Movie = {
 export type Query = {
   __typename?: 'Query';
   bookings: Array<Booking>;
+  categories: Array<Category>;
   cinemas: Array<Cinema>;
   halls: Array<Hall>;
   movies: Array<Movie>;
+  seats: Array<Seat>;
   showtimes: Array<Showtime>;
   users: Array<User>;
 };
@@ -98,6 +108,11 @@ export type QueryBookingsArgs = {
 
 export type QueryHallsArgs = {
   cinemaId?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QuerySeatsArgs = {
+  hallId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -115,6 +130,7 @@ export type Seat = {
 
 export type Showtime = {
   __typename?: 'Showtime';
+  bookings: Array<Booking>;
   endTime: Scalars['String']['output'];
   hall: Hall;
   id: Scalars['Int']['output'];
@@ -125,6 +141,7 @@ export type Showtime = {
 
 export type User = {
   __typename?: 'User';
+  booking: Array<Booking>;
   email: Scalars['String']['output'];
   firstName: Scalars['String']['output'];
   id: Scalars['Int']['output'];
@@ -208,6 +225,7 @@ export type ResolversTypes = {
   Booking: ResolverTypeWrapper<BookingModel>;
   BookingSeat: ResolverTypeWrapper<BookingSeatModel>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Category: ResolverTypeWrapper<Omit<Category, 'movies'> & { movies: Array<ResolversTypes['Movie']> }>;
   Cinema: ResolverTypeWrapper<Omit<Cinema, 'halls'> & { halls: Array<ResolversTypes['Hall']> }>;
   Hall: ResolverTypeWrapper<HallModel>;
   Incident: ResolverTypeWrapper<IncidentModel>;
@@ -225,6 +243,7 @@ export type ResolversParentTypes = {
   Booking: BookingModel;
   BookingSeat: BookingSeatModel;
   Boolean: Scalars['Boolean']['output'];
+  Category: Omit<Category, 'movies'> & { movies: Array<ResolversParentTypes['Movie']> };
   Cinema: Omit<Cinema, 'halls'> & { halls: Array<ResolversParentTypes['Hall']> };
   Hall: HallModel;
   Incident: IncidentModel;
@@ -250,6 +269,13 @@ export type BookingSeatResolvers<ContextType = DataSourceContext, ParentType ext
   booking?: Resolver<ResolversTypes['Booking'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   seat?: Resolver<ResolversTypes['Seat'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CategoryResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -288,6 +314,7 @@ export type IncidentResolvers<ContextType = DataSourceContext, ParentType extend
 };
 
 export type MovieResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = {
+  category?: Resolver<ResolversTypes['Category'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   favorite?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -300,9 +327,11 @@ export type MovieResolvers<ContextType = DataSourceContext, ParentType extends R
 
 export type QueryResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   bookings?: Resolver<Array<ResolversTypes['Booking']>, ParentType, ContextType, Partial<QueryBookingsArgs>>;
+  categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
   cinemas?: Resolver<Array<ResolversTypes['Cinema']>, ParentType, ContextType>;
   halls?: Resolver<Array<ResolversTypes['Hall']>, ParentType, ContextType, Partial<QueryHallsArgs>>;
   movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
+  seats?: Resolver<Array<ResolversTypes['Seat']>, ParentType, ContextType, Partial<QuerySeatsArgs>>;
   showtimes?: Resolver<Array<ResolversTypes['Showtime']>, ParentType, ContextType, Partial<QueryShowtimesArgs>>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
@@ -316,6 +345,7 @@ export type SeatResolvers<ContextType = DataSourceContext, ParentType extends Re
 };
 
 export type ShowtimeResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Showtime'] = ResolversParentTypes['Showtime']> = {
+  bookings?: Resolver<Array<ResolversTypes['Booking']>, ParentType, ContextType>;
   endTime?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   hall?: Resolver<ResolversTypes['Hall'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -326,6 +356,7 @@ export type ShowtimeResolvers<ContextType = DataSourceContext, ParentType extend
 };
 
 export type UserResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  booking?: Resolver<Array<ResolversTypes['Booking']>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -339,6 +370,7 @@ export type UserResolvers<ContextType = DataSourceContext, ParentType extends Re
 export type Resolvers<ContextType = DataSourceContext> = {
   Booking?: BookingResolvers<ContextType>;
   BookingSeat?: BookingSeatResolvers<ContextType>;
+  Category?: CategoryResolvers<ContextType>;
   Cinema?: CinemaResolvers<ContextType>;
   Hall?: HallResolvers<ContextType>;
   Incident?: IncidentResolvers<ContextType>;

@@ -1,6 +1,6 @@
 import {RESTDataSource, AugmentedRequest} from "@apollo/datasource-rest";
 import {KeyValueCache} from "@apollo/utils.keyvaluecache";
-import {MovieModel} from "../models.ts";
+import {CategoryModel, MovieModel} from "../models.ts";
 import process from "node:process";
 
 export class MovieApi extends RESTDataSource {
@@ -14,6 +14,14 @@ export class MovieApi extends RESTDataSource {
 
     override willSendRequest(_path: string, request: AugmentedRequest) {
         request.headers['authorization'] = this.token;
+    }
+
+    getCategory(categoryId: number): Promise<CategoryModel> {
+        return this.get<CategoryModel>(`category/${encodeURIComponent(categoryId)}`);
+    }
+
+    getCategories(): Promise<CategoryModel> {
+        return this.get<CategoryModel>(`category`);
     }
 
     getMovie(movieId: number): Promise<MovieModel> {

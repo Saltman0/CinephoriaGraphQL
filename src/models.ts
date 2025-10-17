@@ -26,6 +26,11 @@ export type ShowtimeModel = {
   hallId: number;
 }
 
+export type CategoryModel = {
+  id: number;
+  name: string;
+}
+
 export type MovieModel = {
   id: number;
   title: string;
@@ -33,6 +38,7 @@ export type MovieModel = {
   minimumAge: number;
   favorite: boolean;
   imageURL: string;
+  categoryId: number;
 }
 
 export type IncidentModel = {

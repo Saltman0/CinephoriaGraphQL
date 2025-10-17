@@ -11,6 +11,9 @@ export const resolvers: Resolvers = {
     seats: (_, { hallId }, { dataSources }) => {
       return dataSources.infrastructureApi.getSeats(hallId);
     },
+    categories: (_, __, { dataSources }) => {
+      return dataSources.movieApi.getCategories();
+    },
     movies: (_, __, { dataSources }) => {
       return dataSources.movieApi.getMovies();
     },
@@ -33,6 +36,9 @@ export const resolvers: Resolvers = {
     }
   },
   Movie: {
+    category: ({ id }, _, { dataSources }) => {
+        return dataSources.movieApi.getCategory(id);
+    },
     showtimes: ({ id }, _, { dataSources }) => {
       return dataSources.showtimeApi.getShowtimes(id);
     }
