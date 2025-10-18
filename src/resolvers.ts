@@ -36,8 +36,8 @@ export const resolvers: Resolvers = {
     }
   },
   Movie: {
-    category: ({ id }, _, { dataSources }) => {
-        return dataSources.movieApi.getCategory(id);
+    category: ({ categoryId }, _, { dataSources }) => {
+        return dataSources.movieApi.getCategory(categoryId);
     },
     showtimes: ({ id }, _, { dataSources }) => {
       return dataSources.showtimeApi.getShowtimes(id);
