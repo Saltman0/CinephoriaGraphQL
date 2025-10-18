@@ -33,6 +33,9 @@ export const resolvers: Resolvers = {
     },
     incidents: ({ id }, _, { dataSources }) => {
       return dataSources.infrastructureApi.getIncidents(id);
+    },
+    seats: ({ id }, _, { dataSources }) => {
+      return dataSources.infrastructureApi.getSeats(id);
     }
   },
   Movie: {
