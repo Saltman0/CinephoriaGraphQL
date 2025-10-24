@@ -41,6 +41,15 @@ export type MovieModel = {
   categoryId: number;
 }
 
+export type RatingModel = {
+  id: number;
+  number: number;
+  description: string;
+  validated: boolean;
+  movieId: number;
+  userId: number;
+}
+
 export type IncidentModel = {
   id: number;
   type: string;

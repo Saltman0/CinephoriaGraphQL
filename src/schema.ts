@@ -90,7 +90,17 @@ export const typeDefs = gql`#graphql
         favorite: Boolean!
         imageURL: String!
         category: Category!
+        ratings: [Rating!]!
         showtimes: [Showtime!]!
+    }
+
+    type Rating {
+        id: Int!
+        number: Int!
+        description: String!
+        validated: Boolean!
+        movie: Movie!
+        user: User!
     }
 
     type Showtime {

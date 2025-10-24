@@ -83,6 +83,7 @@ export type Movie = {
   id: Scalars['Int']['output'];
   imageURL: Scalars['String']['output'];
   minimumAge?: Maybe<Scalars['Int']['output']>;
+  ratings: Array<Rating>;
   showtimes: Array<Showtime>;
   title: Scalars['String']['output'];
 };
@@ -94,6 +95,7 @@ export type Query = {
   cinemas: Array<Cinema>;
   halls: Array<Hall>;
   movies: Array<Movie>;
+  ratings: Array<Rating>;
   seats: Array<Seat>;
   showtimes: Array<Showtime>;
   users: Array<User>;
@@ -118,6 +120,16 @@ export type QuerySeatsArgs = {
 
 export type QueryShowtimesArgs = {
   movieId?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type Rating = {
+  __typename?: 'Rating';
+  description: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  movie: Movie;
+  number: Scalars['Int']['output'];
+  user: User;
+  validated: Scalars['Boolean']['output'];
 };
 
 export type Seat = {
@@ -232,6 +244,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Movie: ResolverTypeWrapper<MovieModel>;
   Query: ResolverTypeWrapper<{}>;
+  Rating: ResolverTypeWrapper<Omit<Rating, 'movie' | 'user'> & { movie: ResolversTypes['Movie'], user: ResolversTypes['User'] }>;
   Seat: ResolverTypeWrapper<SeatModel>;
   Showtime: ResolverTypeWrapper<ShowtimeModel>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -250,6 +263,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int']['output'];
   Movie: MovieModel;
   Query: {};
+  Rating: Omit<Rating, 'movie' | 'user'> & { movie: ResolversParentTypes['Movie'], user: ResolversParentTypes['User'] };
   Seat: SeatModel;
   Showtime: ShowtimeModel;
   String: Scalars['String']['output'];
@@ -320,6 +334,7 @@ export type MovieResolvers<ContextType = DataSourceContext, ParentType extends R
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   imageURL?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   minimumAge?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  ratings?: Resolver<Array<ResolversTypes['Rating']>, ParentType, ContextType>;
   showtimes?: Resolver<Array<ResolversTypes['Showtime']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -331,9 +346,20 @@ export type QueryResolvers<ContextType = DataSourceContext, ParentType extends R
   cinemas?: Resolver<Array<ResolversTypes['Cinema']>, ParentType, ContextType>;
   halls?: Resolver<Array<ResolversTypes['Hall']>, ParentType, ContextType, Partial<QueryHallsArgs>>;
   movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
+  ratings?: Resolver<Array<ResolversTypes['Rating']>, ParentType, ContextType>;
   seats?: Resolver<Array<ResolversTypes['Seat']>, ParentType, ContextType, Partial<QuerySeatsArgs>>;
   showtimes?: Resolver<Array<ResolversTypes['Showtime']>, ParentType, ContextType, Partial<QueryShowtimesArgs>>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type RatingResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Rating'] = ResolversParentTypes['Rating']> = {
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  movie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType>;
+  number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  validated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type SeatResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Seat'] = ResolversParentTypes['Seat']> = {
@@ -376,6 +402,7 @@ export type Resolvers<ContextType = DataSourceContext> = {
   Incident?: IncidentResolvers<ContextType>;
   Movie?: MovieResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Rating?: RatingResolvers<ContextType>;
   Seat?: SeatResolvers<ContextType>;
   Showtime?: ShowtimeResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
