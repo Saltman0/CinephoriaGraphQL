@@ -9,7 +9,7 @@ export const typeDefs = gql`#graphql
         bookings(userId: Int, showtimeId: Int): [Booking!]!
         showtimes(movieId: Int): [Showtime!]!
         categories: [Category!]!
-        movies: [Movie!]!
+        movies(categoryId: Int): [Movie!]!
         users: [User!]!
     }
 
@@ -91,7 +91,7 @@ export const typeDefs = gql`#graphql
         imageURL: String!
         category: Category!
         ratings: [Rating!]!
-        showtimes: [Showtime!]!
+        showtimes(startDate: String, endDate: String): [Showtime!]!
     }
 
     type Rating {
@@ -109,7 +109,7 @@ export const typeDefs = gql`#graphql
         endTime: String!
         price: Int!
         movie: Movie!
-        hall: Hall!
+        hall(cinemaId: Int): Hall
         bookings: [Booking!]!
     }
 `;

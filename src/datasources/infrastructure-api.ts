@@ -17,8 +17,20 @@ export class InfrastructureApi extends RESTDataSource {
         return this.get<HallModel[]>("hall");
     }
 
-    getHall(hallId: number): Promise<HallModel> {
-        return this.get<HallModel>(`hall/${encodeURIComponent(hallId)}`);
+    getHall(hallId: number, cinemaId: number|null): Promise<HallModel> {
+        let url = `hall/${encodeURIComponent(hallId)}`;
+
+        let params: string[] = [];
+
+        if (cinemaId !== null) {
+            params.push(`cinemaId=${encodeURIComponent(cinemaId)}`);
+        }
+
+        if (params.length > 0) {
+            url += "?" + params.join("&");
+        }
+
+        return this.get<HallModel>(url);
     }
 
     getSeats(hallId: number|null): Promise<SeatModel[]> {

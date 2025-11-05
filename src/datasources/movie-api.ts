@@ -17,8 +17,20 @@ export class MovieApi extends RESTDataSource {
       return this.get<MovieModel>(`movie/${encodeURIComponent(movieId)}`);
     }
 
-    getMovies(): Promise<MovieModel> {
-        return this.get<MovieModel>(`movie`);
+    getMovies(categoryId: number|null): Promise<MovieModel> {
+        let url: string = "movie";
+
+        let params: string[] = [];
+
+        if (categoryId !== null) {
+            params.push(`categoryId=${encodeURIComponent(categoryId)}`);
+        }
+
+        if (params.length > 0) {
+            url += "?" + params.join("&");
+        }
+
+        return this.get<MovieModel>(url);
     }
 
     getRatings(movieId: number|null): Promise<RatingModel[]> {

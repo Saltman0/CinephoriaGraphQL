@@ -14,8 +14,8 @@ export const resolvers: Resolvers = {
     categories: (_, __, { dataSources }) => {
       return dataSources.movieApi.getCategories();
     },
-    movies: (_, __, { dataSources }) => {
-      return dataSources.movieApi.getMovies();
+    movies: (_, { categoryId }, { dataSources }) => {
+      return dataSources.movieApi.getMovies(categoryId);
     },
     bookings: (_, { userId, showtimeId }, { dataSources }) => {
       return dataSources.bookingApi.getBookings(userId, showtimeId);
@@ -45,16 +45,20 @@ export const resolvers: Resolvers = {
     ratings: ({ id }, _, { dataSources }) => {
       return dataSources.movieApi.getRatings(id);
     },
-    showtimes: ({ id }, _, { dataSources }) => {
-      return dataSources.showtimeApi.getShowtimes(id);
+    showtimes: (
+        { id },
+        { startDate, endDate },
+        { dataSources }
+    ) => {
+      return dataSources.showtimeApi.getShowtimes(id, startDate, endDate);
     }
   },
   Showtime: {
     movie: ({ movieId }, _, { dataSources }) => {
       return dataSources.movieApi.getMovie(movieId);
     },
-    hall: ({ hallId }, _, { dataSources }) => {
-      return dataSources.infrastructureApi.getHall(hallId);
+    hall: ({ hallId }, { cinemaId }, { dataSources }) => {
+      return dataSources.infrastructureApi.getHall(hallId, cinemaId);
     }
   },
   Booking: {

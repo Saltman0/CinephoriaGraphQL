@@ -88,6 +88,12 @@ export type Movie = {
   title: Scalars['String']['output'];
 };
 
+
+export type MovieShowtimesArgs = {
+  endDate?: InputMaybe<Scalars['String']['input']>;
+  startDate?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   bookings: Array<Booking>;
@@ -95,7 +101,6 @@ export type Query = {
   cinemas: Array<Cinema>;
   halls: Array<Hall>;
   movies: Array<Movie>;
-  ratings: Array<Rating>;
   seats: Array<Seat>;
   showtimes: Array<Showtime>;
   users: Array<User>;
@@ -110,6 +115,11 @@ export type QueryBookingsArgs = {
 
 export type QueryHallsArgs = {
   cinemaId?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryMoviesArgs = {
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -149,6 +159,11 @@ export type Showtime = {
   movie: Movie;
   price: Scalars['Int']['output'];
   startTime: Scalars['String']['output'];
+};
+
+
+export type ShowtimeHallArgs = {
+  cinemaId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type User = {
@@ -335,7 +350,7 @@ export type MovieResolvers<ContextType = DataSourceContext, ParentType extends R
   imageURL?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   minimumAge?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   ratings?: Resolver<Array<ResolversTypes['Rating']>, ParentType, ContextType>;
-  showtimes?: Resolver<Array<ResolversTypes['Showtime']>, ParentType, ContextType>;
+  showtimes?: Resolver<Array<ResolversTypes['Showtime']>, ParentType, ContextType, Partial<MovieShowtimesArgs>>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -345,8 +360,7 @@ export type QueryResolvers<ContextType = DataSourceContext, ParentType extends R
   categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
   cinemas?: Resolver<Array<ResolversTypes['Cinema']>, ParentType, ContextType>;
   halls?: Resolver<Array<ResolversTypes['Hall']>, ParentType, ContextType, Partial<QueryHallsArgs>>;
-  movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
-  ratings?: Resolver<Array<ResolversTypes['Rating']>, ParentType, ContextType>;
+  movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType, Partial<QueryMoviesArgs>>;
   seats?: Resolver<Array<ResolversTypes['Seat']>, ParentType, ContextType, Partial<QuerySeatsArgs>>;
   showtimes?: Resolver<Array<ResolversTypes['Showtime']>, ParentType, ContextType, Partial<QueryShowtimesArgs>>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
@@ -373,7 +387,7 @@ export type SeatResolvers<ContextType = DataSourceContext, ParentType extends Re
 export type ShowtimeResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Showtime'] = ResolversParentTypes['Showtime']> = {
   bookings?: Resolver<Array<ResolversTypes['Booking']>, ParentType, ContextType>;
   endTime?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  hall?: Resolver<ResolversTypes['Hall'], ParentType, ContextType>;
+  hall?: Resolver<ResolversTypes['Hall'], ParentType, ContextType, Partial<ShowtimeHallArgs>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   movie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;

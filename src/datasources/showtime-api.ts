@@ -5,12 +5,28 @@ import process from "node:process";
 export class ShowtimeApi extends RESTDataSource {
     override baseURL = process.env.GRAPHQL_URL as string;
 
-    getShowtimes(movieId: number): Promise<ShowtimeModel[]> {
+    getShowtimes(movieId: number|null, startDate: string|null, endDate: string|null): Promise<ShowtimeModel[]> {
+        let url = "showtime";
+
+        let params: string[] = [];
+
         if (movieId !== null) {
-            return this.get<ShowtimeModel[]>(`showtime?movieId=${encodeURIComponent(movieId)}`);
+            params.push(`movieId=${encodeURIComponent(movieId)}`);
         }
 
-        return this.get<ShowtimeModel[]>(`showtime`);
+        if (startDate !== null) {
+            params.push(`startDate=${encodeURIComponent(startDate)}`);
+        }
+
+        if (endDate !== null) {
+            params.push(`endDate=${encodeURIComponent(endDate)}`);
+        }
+
+        if (params.length > 0) {
+            url += "?" + params.join("&");
+        }
+
+        return this.get<ShowtimeModel[]>(url);
     }
 
     getShowtime(showtimeId: number): Promise<ShowtimeModel> {
