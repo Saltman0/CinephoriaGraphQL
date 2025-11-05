@@ -6,6 +6,7 @@
     "npm:@apollo/datasource-rest@^6.4.1": "6.4.1_graphql@16.11.0",
     "npm:@apollo/server@^4.11.3": "4.12.2_graphql@16.11.0",
     "npm:@apollo/utils.keyvaluecache@^3.1.0": "3.1.0",
+    "npm:@graphql-codegen/cli@5.0.7": "5.0.7_graphql@16.11.0_@types+node@24.2.0",
     "npm:@graphql-codegen/cli@^5.0.3": "5.0.7_graphql@16.11.0_@types+node@24.2.0",
     "npm:@graphql-codegen/typescript-resolvers@^4.4.1": "4.5.2_graphql@16.11.0",
     "npm:@graphql-codegen/typescript@^4.1.2": "4.1.6_graphql@16.11.0",
