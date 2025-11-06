@@ -22,7 +22,7 @@ export class MovieApi extends RESTDataSource {
 
         let params: string[] = [];
 
-        if (categoryId !== null) {
+        if (categoryId) {
             params.push(`categoryId=${encodeURIComponent(categoryId)}`);
         }
 
@@ -34,7 +34,7 @@ export class MovieApi extends RESTDataSource {
     }
 
     getRatings(movieId: number|null): Promise<RatingModel[]> {
-        if (movieId !== null) {
+        if (movieId) {
             return this.get<RatingModel[]>(`rating?movieId=${encodeURIComponent(movieId)}`);
         }
 

@@ -10,7 +10,7 @@ export class ShowtimeApi extends RESTDataSource {
 
         let params: string[] = [];
 
-        if (movieId !== null) {
+        if (movieId) {
             params.push(`movieId=${encodeURIComponent(movieId)}`);
         }
 

@@ -6,13 +6,15 @@ export class BookingApi extends RESTDataSource {
     override baseURL = process.env.GRAPHQL_URL as string;
 
     getBookings(userId: number, showtimeId: number): Promise<BookingModel[]> {
-        if (userId !== null && showtimeId !== null) {
-            return this.get<BookingModel[]>(`booking?userId=${encodeURIComponent(userId)}&showtimeId=${encodeURIComponent(showtimeId)}`);
+        if (userId && showtimeId) {
+            return this.get<BookingModel[]>(
+                `booking?userId=${encodeURIComponent(userId)}&showtimeId=${encodeURIComponent(showtimeId)}`
+            );
         }
-        if (userId !== null) {
+        if (userId) {
             return this.get<BookingModel[]>(`booking?userId=${encodeURIComponent(userId)}`);
         }
-        if (showtimeId !== null) {
+        if (showtimeId) {
             return this.get<BookingModel[]>(`booking?showtimeId=${encodeURIComponent(showtimeId)}`);
         }
 

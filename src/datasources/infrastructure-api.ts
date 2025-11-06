@@ -22,7 +22,7 @@ export class InfrastructureApi extends RESTDataSource {
 
         let params: string[] = [];
 
-        if (cinemaId !== null) {
+        if (cinemaId) {
             params.push(`cinemaId=${encodeURIComponent(cinemaId)}`);
         }
 
