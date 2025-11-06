@@ -14,11 +14,11 @@ export class ShowtimeApi extends RESTDataSource {
             params.push(`movieId=${encodeURIComponent(movieId)}`);
         }
 
-        if (startDate !== null) {
+        if (startDate) {
             params.push(`startDate=${encodeURIComponent(startDate)}`);
         }
 
-        if (endDate !== null) {
+        if (endDate) {
             params.push(`endDate=${encodeURIComponent(endDate)}`);
         }
 
