@@ -154,7 +154,7 @@ export type Showtime = {
   __typename?: 'Showtime';
   bookings: Array<Booking>;
   endTime: Scalars['String']['output'];
-  hall: Hall;
+  hall?: Maybe<Hall>;
   id: Scalars['Int']['output'];
   movie: Movie;
   price: Scalars['Int']['output'];
@@ -387,7 +387,7 @@ export type SeatResolvers<ContextType = DataSourceContext, ParentType extends Re
 export type ShowtimeResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Showtime'] = ResolversParentTypes['Showtime']> = {
   bookings?: Resolver<Array<ResolversTypes['Booking']>, ParentType, ContextType>;
   endTime?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  hall?: Resolver<ResolversTypes['Hall'], ParentType, ContextType, Partial<ShowtimeHallArgs>>;
+  hall?: Resolver<Maybe<ResolversTypes['Hall']>, ParentType, ContextType, Partial<ShowtimeHallArgs>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   movie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
